@@ -6,7 +6,7 @@ MovieHub is a modern full-stack MERN application that allows users to discover m
 
 ## 📸 **Screenshots**
 
-> Add your screenshots inside the `/screenshots` folder and update paths below.
+
 
 ### **🏠 Home Page**
 ![Home Screenshot](./screenshots/home.png)
