@@ -28,7 +28,7 @@ export const movieChat = async (req, res) => {
         : "Give me an overview of this movie.");
 
     const model = genAI.getGenerativeModel({
-      model: "gemini-1.5-flash", // stable model
+      model: "gemini-2.0-flash", // stable model
     });
 
     const prompt = `
