@@ -96,8 +96,38 @@ MovieHub is a modern full-stack MERN application that allows users to discover m
 ---
 
 ## 📂 **Project Structure**
-## 📂 **Project Structure**
 
 moviehub/│├── backend/│ ├── controllers/│ ├── routes/│ ├── models/│ ├── middleware/│ ├── config/│ ├── server.js│ └── package.json│├── frontend/│ ├── src/│ │ ├── components/│ │ ├── pages/│ │ ├── context/│ │ └── App.jsx│ ├── public/│ └── vite.config.js│└── README.md
 ---
 
+## ⚙️ **Environment Variables**
+
+### **Backend `.env`**
+
+| Variable | Description | Example Value |
+| :--- | :--- | :--- |
+| `MONGO_URI` | MongoDB connection string | `your_mongodb_connection` |
+| `JWT_SECRET` | Secret key for JWT | `your_jwt_secret` |
+| `EMAIL_USER` | Email address for sending mail | `your_email@gmail.com` |
+| `EMAIL_PASS` | App password for email | `your_email_app_password` |
+| `TMDB_API_KEY` | The Movie Database API key | `your_tmdb_api_key` |
+| `GEMINI_API_KEY` | Google Gemini API key | `your_gemini_api_key` |
+| `GOOGLE_CLIENT_ID` | Google OAuth client ID | `your_google_oauth_client_id` |
+
+### **Frontend `.env`**
+
+| Variable | Description | Example Value |
+| :--- | :--- | :--- |
+| `VITE_BACKEND_LINK` | Deployed backend URL | `https://your-backend.onrender.com` |
+| `VITE_TMDB_API` | The Movie Database API key | `your_tmdb_api_key` |
+| `VITE_GOOGLE_AUTH_CLIENT_ID` | Google OAuth client ID | `your_google_client_id` |
+| `VITE_EMAIL_API_KEY` | Email validator key | `your_email_validator_key` |
+
+---
+
+## 🚀 **Local Development Setup**
+
+### 1. Clone Repository
+
+git clone [https://github.com/](https://github.com/)<your-username>/<your-repo>.git
+cd your-repo
