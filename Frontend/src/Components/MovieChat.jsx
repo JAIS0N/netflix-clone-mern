@@ -1,3 +1,4 @@
+// frontend/src/Components/MovieChat.jsx
 import { useState, useRef, useEffect } from "react";
 import { FaPaperPlane, FaRobot, FaUser, FaComments, FaTimes } from "react-icons/fa";
 
@@ -33,13 +34,14 @@ export default function MovieChat({ movieContext }) {
 
     try {
       const res = await fetch(
-        import.meta.env.VITE_BACKEND_LINK + "/api/chat/movie",
+        `${import.meta.env.VITE_BACKEND_LINK}/api/chat/movie`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            context: movieContext,
-            messages: newMessages,
+            // match the backend controller:
+            question: trimmed,
+            movieContext, // short for movieContext: movieContext
           }),
         }
       );
@@ -121,8 +123,8 @@ export default function MovieChat({ movieContext }) {
           {/* Messages */}
           <div className="px-3 pt-3 pb-2 h-64 overflow-y-auto space-y-3 bg-[#050505]">
             <p className="text-[11px] text-gray-400 px-1">
-              I use details from this page (title, cast, overview, ratings, and more)
-              to answer your questions about{" "}
+              I use details from this page (title, cast, overview, ratings, and
+              more) to answer your questions about{" "}
               <span className="font-semibold text-gray-200">
                 {movieContext.title}
               </span>
