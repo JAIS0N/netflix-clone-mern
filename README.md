@@ -95,10 +95,30 @@ MovieHub is a modern full-stack MERN application that allows users to discover m
 
 ---
 
-## 📂 **Project Structure**
-
-moviehub/│├── backend/│ ├── controllers/│ ├── routes/│ ├── models/│ ├── middleware/│ ├── config/│ ├── server.js│ └── package.json│├── frontend/│ ├── src/│ │ ├── components/│ │ ├── pages/│ │ ├── context/│ │ └── App.jsx│ ├── public/│ └── vite.config.js│└── README.md
----
+## 📁 **Project Structure**
+```
+moviehub/
+│
+├── backend/
+│   ├── controllers/
+│   ├── routes/
+│   ├── models/
+│   ├── middleware/
+│   ├── config/
+│   ├── server.js
+│   └── package.json
+│
+├── frontend/
+│   ├── src/
+│   │   ├── components/
+│   │   ├── pages/
+│   │   ├── context/
+│   │   └── App.jsx
+│   ├── public/
+│   └── vite.config.js
+│
+└── README.md
+```
 
 ## ⚙️ **Environment Variables**
 
