@@ -104,7 +104,7 @@ export default function MovieChat({ movieContext }) {
               </div>
               <div className="flex flex-col">
                 <span className="text-sm font-semibold text-gray-100">
-                  OvieHub AI
+                  Ovi
                 </span>
                 <span className="text-[11px] text-gray-400">
                   Talking about {movieContext.title}
