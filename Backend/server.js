@@ -18,6 +18,14 @@ app.use(express.urlencoded({ extended: true, limit: "10mb" }));
 app.get("/", (req, res) => res.send("API Running"));
 app.use("/api/users", userRoutes);
 
+app.get("/health", (req, res) => {
+  res.json({
+    ok: true,
+    message: "Moviehub backend is running",
+    time: new Date().toISOString(),
+  });
+});
+
 const uploadsPath = path.join(process.cwd(), "uploads");
 app.use("/uploads", express.static(uploadsPath));
 
