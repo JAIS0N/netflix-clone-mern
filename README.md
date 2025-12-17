@@ -173,7 +173,7 @@ npm install
 
 **Start the backend server:**
 ```bash
-npm run dev
+npm start dev
 ```
 
 **Backend runs at:** http://localhost:5000
@@ -196,7 +196,7 @@ npm install
 
 **Start the frontend development server:**
 ```bash
-npm start dev
+npm run dev
 ```
 
 **Frontend runs at:** http://localhost:5173
