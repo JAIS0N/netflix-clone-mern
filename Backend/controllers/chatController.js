@@ -6,7 +6,7 @@ import { trace, context, SpanStatusCode } from "@opentelemetry/api";
 dotenv.config();
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-const tracer = trace.getTracer("oviehub-chat");
+const tracer = trace.getTracer("moviehub-chat");
 
 // POST /api/chat/movie
 export const movieChat = async (req, res) => {
@@ -51,7 +51,7 @@ ${userQuestion}
 Answer in short, clear paragraphs. If you are unsure about something, say so instead of inventing details.
     `.trim();
 
-    // ✅ Custom span around Gemini call
+    //  Custom span around Gemini call
     const span = tracer.startSpan(
       "gemini.generateContent",
       undefined,
@@ -62,10 +62,10 @@ Answer in short, clear paragraphs. If you are unsure about something, say so ins
       // Minimal, non-sensitive attributes for debugging and dashboards
       span.setAttribute("llm.provider", "google");
       span.setAttribute("llm.model", "gemini-2.0-flash");
-      span.setAttribute("oviehub.endpoint", "/api/chat/movie");
-      span.setAttribute("oviehub.movie.title", String(movie.title));
-      span.setAttribute("oviehub.prompt.length", prompt.length);
-      span.setAttribute("oviehub.question.length", userQuestion.length);
+      span.setAttribute("moviehub.endpoint", "/api/chat/movie");
+      span.setAttribute("moviehub.movie.title", String(movie.title));
+      span.setAttribute("moviehub.prompt.length", prompt.length);
+      span.setAttribute("moviehub.question.length", userQuestion.length);
 
       const result = await model.generateContent(prompt);
       const response = await result.response;
