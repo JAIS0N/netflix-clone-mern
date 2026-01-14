@@ -1,10 +1,12 @@
 // backend/controllers/chatController.js
 import dotenv from "dotenv";
 import { GoogleGenerativeAI } from "@google/generative-ai";
+import { trace, context, SpanStatusCode } from "@opentelemetry/api";
 
 dotenv.config();
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+const tracer = trace.getTracer("oviehub-chat");
 
 // POST /api/chat/movie
 export const movieChat = async (req, res) => {
@@ -12,12 +14,14 @@ export const movieChat = async (req, res) => {
     // Support BOTH shapes:
     // { context, messages }   (old)
     // { movieContext, question } (new)
-    const { context, messages, movieContext, question } = req.body;
+    const { context: ctx, messages, movieContext, question } = req.body;
 
-    const movie = context || movieContext;
+    const movie = ctx || movieContext;
 
     if (!movie || !movie.title) {
-      return res.status(400).json({ message: "Missing movie context (title required)" });
+      return res
+        .status(400)
+        .json({ message: "Missing movie context (title required)" });
     }
 
     // Figure out the user’s actual question
@@ -47,11 +51,40 @@ ${userQuestion}
 Answer in short, clear paragraphs. If you are unsure about something, say so instead of inventing details.
     `.trim();
 
-    const result = await model.generateContent(prompt);
-    const response = await result.response;
-    const text = response.text() || "Sorry, I could not generate a response.";
+    // ✅ Custom span around Gemini call
+    const span = tracer.startSpan(
+      "gemini.generateContent",
+      undefined,
+      context.active()
+    );
 
-    return res.json({ reply: text });
+    try {
+      // Minimal, non-sensitive attributes for debugging and dashboards
+      span.setAttribute("llm.provider", "google");
+      span.setAttribute("llm.model", "gemini-2.0-flash");
+      span.setAttribute("oviehub.endpoint", "/api/chat/movie");
+      span.setAttribute("oviehub.movie.title", String(movie.title));
+      span.setAttribute("oviehub.prompt.length", prompt.length);
+      span.setAttribute("oviehub.question.length", userQuestion.length);
+
+      const result = await model.generateContent(prompt);
+      const response = await result.response;
+      const text = response.text() || "Sorry, I could not generate a response.";
+
+      span.setStatus({ code: SpanStatusCode.OK });
+      span.setAttribute("oviehub.response.length", text.length);
+
+      return res.json({ reply: text });
+    } catch (err) {
+      span.recordException(err);
+      span.setStatus({
+        code: SpanStatusCode.ERROR,
+        message: err?.message,
+      });
+      throw err;
+    } finally {
+      span.end();
+    }
   } catch (error) {
     console.error("Movie chat (Gemini) error:", error?.response?.data || error);
     return res.status(500).json({
