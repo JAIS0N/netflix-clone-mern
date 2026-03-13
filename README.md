@@ -1,4 +1,4 @@
-# 🎬 **MovieHub — Full-Stack Movie Discovery App with AI Chatbot**
+#  **MovieHub — Full-Stack Movie Discovery App with AI Chatbot**
 
 MovieHub is a modern full-stack MERN application that allows users to discover movies, explore detailed information, manage watchlists & favourites, check OTT availability, and chat with an **AI-powered movie assistant (Gemini)** — all with a sleek, responsive UI.
 
